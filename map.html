@@ -79,12 +79,14 @@ var geojson = [
 }
 ];
 
-L.mapbox.map('map', 'mapbox.streets')
+var map = L.mapbox.map('map', null, {
+      maxZoom: 18
+  })
   .addControl(L.mapbox.geocoderControl('mapbox.places'))
   .setView([12.7395, 77.7104], 9)
   .featureLayer.setGeoJSON(geojson);
 
-  var layers = {
+var layers = {
         Streets: L.mapbox.tileLayer('mapbox.streets'),
         Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
         Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
@@ -92,7 +94,7 @@ L.mapbox.map('map', 'mapbox.streets')
 
     layers.Streets.addTo(map);
     L.control.layers(layers).addTo(map);
-    
+
 var hash = L.hash(map);
 </script>
 </body>
