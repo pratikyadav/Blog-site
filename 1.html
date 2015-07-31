@@ -183,15 +183,76 @@
             </div>
         </div>
     </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.3.0/mapbox.directions.js'></script>
+        <link rel='stylesheet' href='https://api.mapbox.com/mapbox.js/plugins/mapbox-directions.js/v0.3.0/mapbox.directions.css' type='text/css' />
+    <script>
+        
+        function plotstuff()
+        {
+            L.mapbox.accessToken = 'pk.eyJ1IjoiYWFydGh5a2MiLCJhIjoiNTA2NWNkNTg5NTE0MGY5MmIxODkwZmY0MDhkYzFmMWYifQ.F8vMO8hrFUXZyntsz3zLQw';
+        var map = L.mapbox.map('mapLoad', 'mapbox.streets').setView([12.9667, 77.5667], 9);
 
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
+        
+            // Start with a fixed marker.
+        var fixedMarker = L.marker(new L.LatLng(12.9667, 77.5667), {
+            icon: L.mapbox.marker.icon({
+                'marker-color': 'ff8888'
+            })
+        }).bindPopup('Bangalore Center').addTo(map);
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+        // Store the fixedMarker coordinates in a variable.
+        var fc = fixedMarker.getLatLng();
+        map.on('click', function(e) {
+            c=e.latlng;
+            document.getElementById('instructions').innerHTML=(fc.distanceTo(c)).toFixed(0) + 'm';
+        });
 
-    <!-- Custom Theme JavaScript -->
-    <script src="js/clean-blog.min.js"></script>
+        var url = "http://overpass.osm.rambler.ru/cgi/interpreter?data=[out:json];node[tourism=viewpoint](12.937143373220634,77.57343292236328,13.04503102974919,77.70217895507811);out;";
+
+        $.ajax({
+            url: url,
+        }).done(function (data) {
+            console.log(data);
+            for (var i=0; i<=data.elements.length; i++) {
+                var point = data.elements[i];
+                if (point && point.lat && point.lon) {
+                    var marker = new L.Marker([point.lat, point.lon]).addTo(map);
+                }
+            }
+        });
+
+        // move the attribution control out of the way
+        map.attributionControl.setPosition('bottomleft');
+
+        // create the initial directions object, from which the layer
+        // and inputs will pull data.
+        var directions = L.mapbox.directions();
+
+        var directionsLayer = L.mapbox.directions.layer(directions)
+            .addTo(map);
+
+        var directionsInputControl = L.mapbox.directions.inputControl('inputs', directions)
+            .addTo(map);
+
+        var directionsErrorsControl = L.mapbox.directions.errorsControl('errors', directions)
+            .addTo(map);
+
+        var directionsRoutesControl = L.mapbox.directions.routesControl('routes', directions)
+            .addTo(map);
+
+
+        var directionsInstructionsControl = L.mapbox.directions.instructionsControl('instructions', directions)
+            .addTo(map);
+            directions.setOrigin(fc);
+        }
+        plotstuff();
+
+
+
+    </script>
 
 </body>
 
