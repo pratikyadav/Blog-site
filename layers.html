@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset=utf-8 />
-<title>Load GeoJSON</title>
+<title>Toggling baselayers</title>
 <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
 <script src='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.js'></script>
 <link href='https://api.mapbox.com/mapbox.js/v2.2.1/mapbox.css' rel='stylesheet' />
@@ -12,8 +12,8 @@
 </style>
 </head>
 <body>
-<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-hash/v0.2.1/leaflet-hash.js'></script>
 <div id='map'></div>
+
 <script>
 L.mapbox.accessToken = 'pk.eyJ1IjoicHJhdGlreWFkYXYiLCJhIjoiMTA2YWUxNjRkNmFmZGQ4YzAxZWFiNDk0NDM1YjE1YjAifQ.4P6N5dNmA_WQXd3BsJvu5w';
 var geojson = [
@@ -78,24 +78,18 @@ var geojson = [
   ]
 }
 ];
-
-var map = L.mapbox.map('map', null, {
+  var map = L.mapbox.map('map', null, {
       maxZoom: 18
-  })
-  .addControl(L.mapbox.geocoderControl('mapbox.places'))
-  .setView([12.7395, 77.7104], 9)
-  .featureLayer.setGeoJSON(geojson);
+  }).setView([12.7395, 77.7104], 9).addControl(L.mapbox.geocoderControl('mapbox.places')).featureLayer.setGeoJSON(geojson);
 
-var layers = {
-        Streets: L.mapbox.tileLayer('mapbox.streets'),
-        Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
-        Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
-    };
+  var layers = {
+      Streets: L.mapbox.tileLayer('mapbox.streets'),
+      Outdoors: L.mapbox.tileLayer('examples.ik7djhcc'),
+      Satellite: L.mapbox.tileLayer('examples.map-igb471ik')
+  };
 
-    layers.Streets.addTo(map);
-    L.control.layers(layers).addTo(map);
-
-var hash = L.hash(map);
+  layers.Streets.addTo(map);
+  L.control.layers(layers).addTo(map);
 </script>
 </body>
 </html>
