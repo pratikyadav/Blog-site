@@ -17,33 +17,65 @@
 L.mapbox.accessToken = 'pk.eyJ1IjoicHJhdGlreWFkYXYiLCJhIjoiMTA2YWUxNjRkNmFmZGQ4YzAxZWFiNDk0NDM1YjE1YjAifQ.4P6N5dNmA_WQXd3BsJvu5w';
 var geojson = [
   {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-77.03238901390978,38.913188059745586]
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "node/245609255",
+      "properties": {
+        "name": "Ramanagara"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.2804797,
+          12.7252766
+        ]
+      }
     },
-    "properties": {
-      "title": "Mapbox DC",
-      "description": "1714 14th St NW, Washington DC",
-      "marker-color": "#fc4353",
-      "marker-size": "large",
-      "marker-symbol": "monument"
-    }
-  },
-  {
-    "type": "Feature",
-    "geometry": {
-      "type": "Point",
-      "coordinates": [-122.414, 37.776]
+    {
+      "type": "Feature",
+      "id": "node/448092876",
+      "properties": {
+        "name": "Nandi Hills"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.6832926,
+          13.4169898
+        ]
+      }
     },
-    "properties": {
-      "title": "Mapbox SF",
-      "description": "155 9th St, San Francisco",
-      "marker-color": "#fc4353",
-      "marker-size": "large",
-      "marker-symbol": "harbor"
+    {
+      "type": "Feature",
+      "id": "node/818755728",
+      "properties": {
+        "name": "Shivanasamudram Falls"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.1667005,
+          12.2966832
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Bheemeshwari"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          77.31157422065735,
+          12.30606227728311
+        ]
+      }
     }
-  }
+  ]
+}
 ];
 
 L.mapbox.map('map', 'mapbox.streets')
